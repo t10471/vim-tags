@@ -142,6 +142,9 @@ function! s:generate_options()
         if match(line, '^!') != -1
           call add(s:files_to_include, substitute(substitute(line, '^!', '', ''), '^/', '', ''))
         elseif strlen(line) > 1 && match(line, g:vim_tags_ignore_file_comment_pattern) == -1
+          if line == '.*'
+              continue
+          endif
           call add(options, '--exclude=' . shellescape(substitute(line, '^/', '', '')))
         endif
       endfor
